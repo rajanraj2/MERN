@@ -1,14 +1,13 @@
 import express from 'express';
-import home, {register} from '../controllers/auth-controller.js';
+import home, {register, login} from '../controllers/auth-controller.js';
+import signupSchema from '../validators/auth-validator.js';
+import validate from '../middlewares/validate-middleware.js';
 
-// Use 'home' as needed
-
-const router = express.Router();    
-const homie = home;
-const registerUser = register;
+const router = express.Router();
 
 router.route('/').get(home);
+router.route('/register').post(validate(signupSchema), register);
+router.route('/login').post(login);
 
-router.route('/register').post(registerUser);
 
 export default router;
