@@ -27,29 +27,31 @@ export const Register = () => {
         alert("Form submitted");
 
         try {
-            const response = await fetch("http://localhost:3060/api/register", {
+            const response = await fetch(`http://localhost:3060/api/auth/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(user),
             });
+            console.log(response);
         }
         catch (err) {
             console.log("register",err);
         }
+        
 
         
-        if (response.ok === true) {
-            alert("Registration successful");
-            setUser({username: "", email: "", phone: "", password: ""});
-            navigate("/login");
-        }
-        else {
-            alert("Registration failed");
-        }
+        // if (response.ok === true) {
+        //     alert("Registration successful");
+        //     setUser({username: "", email: "", phone: "", password: ""});
+        //     navigate("/login");
+        // }
+        // else {
+        //     alert("Registration failed");
+        // }
 
-    console.log(response);
+    // console.log(response);
     }
 
     return (

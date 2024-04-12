@@ -8,8 +8,10 @@ const router = express.Router();
 router.route('/').get(home);
 router
     .route('/register')
-    .post(validate(signupSchema), register);
+    .post( register);
 router.route('/login').post(login);
 
 
 export default router;
+
+// validate(signupSchema),
