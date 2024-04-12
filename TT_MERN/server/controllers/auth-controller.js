@@ -5,14 +5,14 @@ const home = async (req, res) => {
     res.send('Hello World using controller');
 };
 
-const register = async (req, res) => {
+const register = async (req, res, next) => {
     try {
         // console.log(req.body);
         const { username, email, phone, password } = req.body;
         const userExist = await User.findOne({email});
 
         if(userExist) {
-            res.status(400).send({msg: "User already exists"});
+            return res.status(400).send({msg: "User already exists"});
         }
 
 
@@ -25,8 +25,9 @@ const register = async (req, res) => {
             userId: UserCreated._id.toString(),
         });
     }
-    catch {
+    catch(error) {
         // res.status(400).send({msg : "page not found"},);
+        console.log(error);
         next(error);
     }
 };

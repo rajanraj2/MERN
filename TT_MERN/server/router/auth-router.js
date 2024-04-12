@@ -6,7 +6,9 @@ import validate from '../middlewares/validate-middleware.js';
 const router = express.Router();
 
 router.route('/').get(home);
-router.route('/register').post(validate(signupSchema), register);
+router
+    .route('/register')
+    .post(validate(signupSchema), register);
 router.route('/login').post(login);
 
 

@@ -1,23 +1,21 @@
-const validate = (schema) => () => async (req, res, next) => {
+const validate = (schema) => async (req, res, next) => {
     try {
-        // const parsedBody = await schema.parseAsync(req.body);
-        const parsedBody = await schema.validateAsync(req.body);
+        const parsedBody = await schema.parseAsync(req.body);
         req.body = parsedBody;
         next();
-    }
-    catch (err) {
-        const status = 422;
-        const message = "File the input properly.";
+    } catch (err) {
+        const status = 400; // Corrected status code
+        const message = "Failed to validate input.";
         const extraDetails = err.errors[0].message;
-        // res.status(400).send({msg: message});
         const error = {
-            status, 
+            status,
             message,
             extraDetails,
         };
-        console.log(error);
-        next(error); 
+        console.error("Validation Error:", error); // Corrected error object
+        res.status(status).json({ msg: message });
+        next(error); // Moved this line before sending the response
     }
-}
+};
 
 export default validate;
