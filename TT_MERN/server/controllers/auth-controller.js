@@ -26,7 +26,8 @@ const register = async (req, res) => {
         });
     }
     catch {
-        res.status(400).send({msg : "page not found"},);
+        // res.status(400).send({msg : "page not found"},);
+        next(error);
     }
 };
 
