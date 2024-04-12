@@ -6,7 +6,25 @@
 
 html {
   font-size: 92%;
+  background-color: lightblue;
 }
+
+li {
+  list-style: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
