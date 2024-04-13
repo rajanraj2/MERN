@@ -1,4 +1,7 @@
 import { useState } from "react";
+import {useNavigate} from "react-router-dom";
+
+const URL = "http://localhost:3060/api/auth/login";
 
 export const Login = () => {
 
@@ -6,6 +9,8 @@ export const Login = () => {
         email: "",
         password: "",
     });
+
+    const navigate = useNavigate();
 
     const handleInput = (e) => {
         // console.log(e);      
@@ -16,10 +21,36 @@ export const Login = () => {
     } 
 
     // handle form submit
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(user);
-        alert("Loggend in successfully");
+
+        try {
+            const response = await fetch(URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(user),
+            });
+            console.log("Login form", response);
+
+            if (response.ok === true) {
+                alert("Login successful");
+                setUser({email: "", password: ""});
+                navigate("/");
+            }
+            else {
+                alert("Invalid email or password :(");
+                console.log("Invalid email or password :(");
+            }
+        }
+        catch (err) {
+            console.log("login",err);
+        }
+
+
+        // console.log(user);
+        // alert("Loggend in successfully");
     }
 
     return (
@@ -28,7 +59,7 @@ export const Login = () => {
                 <main>
                     <div className="section-login">
                         <div className="container grid grid-two-cols">
-                            <div class="login-image"> 
+                            <div className="login-image"> 
                                 <img src="images/login.png" alt="Login" width="500" height="500"/>
                             </div>
 
