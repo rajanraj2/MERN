@@ -1,5 +1,5 @@
 import User from '../models/user-model.js';
-
+import bycrypt from 'bcryptjs';
 
 const home = async (req, res) => {
     res.send('Hello World using controller');
@@ -10,6 +10,7 @@ const register = async (req, res, next) => {
         // console.log(req.body);
         const { username, email, phone, password } = req.body;
         const userExist = await User.findOne({email});
+        
 
         if(userExist) {
             return res.status(400).send({msg: "User already exists"});
@@ -61,7 +62,20 @@ const login = async (req, res) => {
 }   
 
 
+// USER LOGIC : to send user data
+
+const user = async (req, res) => {
+    try {
+        const userData = req.user;
+        console.log(userData);
+        return res.status(200).json({msg: userData});
+    }
+    catch(error) {
+        console.log(`error from user controller: ${error}`)
+    }
+}
+
 
 export default home;
 
-export { register, login };
+export { register, login, user };
