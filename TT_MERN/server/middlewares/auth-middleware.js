@@ -14,7 +14,7 @@ const authMiddleware = async (req, res, next) => {
     
     const jwtToken = token.replace('Bearer ', '').trim(); // remove Bearer from token
     
-    console.log("token from auth middleware ", jwtToken);
+    // console.log("token from auth middleware ", jwtToken);
 
     try {
         const isVerified = jwt.verify(jwtToken, process.env.JWT_SECRET);
@@ -24,7 +24,7 @@ const authMiddleware = async (req, res, next) => {
             password: 0,
         }); 
         
-        console.log(userData);
+        // console.log(userData);
 
         req.user = userData;
         req.token = token;

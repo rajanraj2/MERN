@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useAuth } from "../store/auth";
 
+const defaultContactFormData = {
+    username: "",
+    email: "",
+    message: "",
+}
+
 export const Contact = () => {
 
-    const [user, setUser] = useState({
-        username: "",
-        email: "",
-        message: "",
-    });
+    const [contact, setUser] = useState(defaultContactFormData);
 
     const [userData, setUserData] = useState(true);
 
@@ -27,14 +29,35 @@ export const Contact = () => {
         const name = e.target.name;
         const value = e.target.value;
 
-        setUser({...user, [name]: value});
+        setUser({...contact, [name]: value});
     } 
 
     // handle form submit
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(user);
-        alert("Message sent successfully.");
+
+        // console.log(user);
+        // alert("Message sent successfully.");
+
+        try{
+            const response = await fetch("http://localhost:3060/api/form/contact", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(contact),
+            });
+
+            if (response.ok) {
+                setUser( defaultContactFormData );
+                const data = await response.json();
+                console.log(data);
+                alert("Message sent successfully.");
+            }
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
 
     return (
@@ -46,7 +69,7 @@ export const Contact = () => {
                             <h1 className="main-heading">Contact us</h1>
                         </div>
                         <div className="container grid grid-two-cols">
-                            <div class="contact-image"> 
+                            <div className="contact-image"> 
                                 <img src="images/FashionFusion.png" alt="Contact" width="500" height="500"/>
                             </div>
 
@@ -68,7 +91,7 @@ export const Contact = () => {
                                         id="username"
                                         required
                                         autoComplete="off"
-                                        value={user.username}
+                                        value={contact.username}
                                         onChange={handleInput}
                                         />
                                     </div>
@@ -83,7 +106,7 @@ export const Contact = () => {
                                         id="email"
                                         required
                                         autoComplete="off"
-                                        value={user.email}
+                                        value={contact.email}
                                         onChange={handleInput}
                                         />
                                     </div>
@@ -98,7 +121,7 @@ export const Contact = () => {
                                         cols="30"
                                         rows="10"
                                         required
-                                        value={user.message}
+                                        value={contact.message}
                                         onChange={handleInput}
                                         />
                                     </div>
