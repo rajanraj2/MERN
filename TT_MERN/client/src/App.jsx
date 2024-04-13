@@ -8,6 +8,7 @@ import {Register} from './pages/Register';
 import {Login} from './pages/Login';
 import {Services} from './pages/Services.jsx';
 import {Error} from './pages/Error.jsx';
+import {Logout} from './pages/Logout.jsx';
 import {Navbar} from './components/Navbar.jsx';
 import {Footer} from './components/Footer/Footer.jsx';
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="*" element={<Error />} />
         </Routes> 
 
