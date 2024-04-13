@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {useNavigate} from "react-router-dom";
+import { useAuth } from "../store/auth";
 
 const URL = "http://localhost:3060/api/auth/register";
 
@@ -13,6 +14,8 @@ export const Register = () => {
     });
 
     const navigate = useNavigate();
+
+    const {storeTokenInLS} = useAuth();
 
     const handleInput = (e) => {
         // console.log(e);      
@@ -37,6 +40,20 @@ export const Register = () => {
                 body: JSON.stringify(user),
             });
             console.log(response);
+
+            if (response.ok === true) {
+                const res_data = await response.json();
+                console.log("response from server", res_data);
+                storeTokenInLS(res_data.token);
+
+
+                alert("Registration successful");
+                setUser({username: "", email: "", phone: "", password: ""});
+                navigate("/login");
+            }
+            else {
+                alert("Registration failed");
+            }
         }
         catch (err) {
             console.log("register",err);
@@ -44,14 +61,7 @@ export const Register = () => {
         
 
         
-        // if (response.ok === true) {
-        //     alert("Registration successful");
-        //     setUser({username: "", email: "", phone: "", password: ""});
-        //     navigate("/login");
-        // }
-        // else {
-        //     alert("Registration failed");
-        // }
+        
 
     // console.log(response);
     }
@@ -62,7 +72,7 @@ export const Register = () => {
                 <main>
                     <div className="section-registration">
                         <div className="container grid grid-two-cols">
-                            <div class="registration-image"> 
+                            <div className="registration-image"> 
                                 <img src="images/register.png" alt="Registration" width="500" height="500"/>
                             </div>
 
