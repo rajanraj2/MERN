@@ -63,9 +63,10 @@ Follow these steps to run the TT_MERN project:
 
     If you are already in the `client` folder, use `cd ../server` to navigate to the server folder.
 
-7. Start the backend server.
+7. Install dependencies and start the backend server.
 
     ```bash
+    npm install
     node server.js
     ```
 
