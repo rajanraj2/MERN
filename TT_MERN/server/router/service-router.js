@@ -1,8 +1,21 @@
-// import express from 'express';
-// import services from '../controllers/service-controller.js';
+import express from 'express';
+import services from '../controllers/service-controller.js';
+import multer from 'multer';
 
-// const router = express.Router();
+// const upload = multer({ dest: 'uploads/' })
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, `${Date.now()}-${file.originalname}`)
+    } 
+});
 
-// router.route('/service').get(services);
+const upload = multer({ storage });
 
-// export default router;
+const router = express.Router();
+
+router.route('/').post(upload.single("clothImage"), services);
+
+export default router;
