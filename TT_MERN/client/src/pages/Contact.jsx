@@ -118,7 +118,7 @@ export const Contact = () => {
                                         <textarea 
                                         name="message"
                                         id="message"
-                                        cols="30"
+                                        cols="80"
                                         rows="10"
                                         required
                                         value={contact.message}
