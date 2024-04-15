@@ -5,7 +5,10 @@ import multer from 'multer';
 // const upload = multer({ dest: 'uploads/' })
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './uploads/')
+        // Get the username from the request
+        // const username = req.user.username; // Assuming user object is available in the request
+
+        cb(null, `./uploads`)
     },
     filename: function (req, file, cb) {
         cb(null, `${Date.now()}-${file.originalname}`)
