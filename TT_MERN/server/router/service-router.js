@@ -2,7 +2,6 @@ import express from 'express';
 import services from '../controllers/service-controller.js';
 import multer from 'multer';
 
-// const upload = multer({ dest: 'uploads/' })
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // Get the username from the request

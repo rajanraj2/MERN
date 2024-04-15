@@ -6,6 +6,7 @@ import cors from 'cors';
 import authRoute from './router/auth-router.js';
 import contactRoute from './router/contact-router.js'; 
 import serviceRoute from './router/service-router.js';
+import imagesRoute from './router/images-router.js';
 import connectDB from './utils/db.js';
 import errorMiddleware from './middlewares/error-middleware.js';
 
@@ -27,6 +28,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/form", contactRoute);
 
 app.use("/api/upload", serviceRoute);
+app.use("/api/getImages", imagesRoute);
 
 
 app.use(errorMiddleware);
