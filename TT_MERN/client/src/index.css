@@ -440,6 +440,7 @@ div img {
   margin-right: auto;
   border: 1px solid #e0e0e0;
   padding-bottom: 20px;
+  margin-bottom: 50px;
 }
 
 .Outer-box {
@@ -458,7 +459,7 @@ div img {
 
 .imageUpload button {
   padding: 10px 20px;
-  background-color: #4CAF50;
+  background-color: #646cff;
   color: white;
   border: none;
   border-radius: 4px;
@@ -467,5 +468,103 @@ div img {
 }
 
 .imageUpload button:hover {
-  background-color: #45a049;
+  background-color: #585fda;
+}
+
+.wardrobe-btn {
+  padding: 10px 20px;
+  background-color: #646cff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+}
+
+.wardrobe-btn:hover {
+  background-color: #585fda;
+}
+
+.services-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Optional: Center-align content horizontally */
+}
+
+.container > div {
+  margin-bottom: 20px; /* Optional: Add some space between divs */
+}
+
+.services-heading {
+  margin-bottom: 10px; /* Optional: Add some space below the heading */
+  display: flex;
+  justify-content: center; /* Center-align the heading */
+  
+}
+
+.service-heading {
+  text-align: center;
+  animation: colorChange 3s infinite;
+}
+
+
+h1 {
+  color: #646cff;
+  font-weight: bold;
+  margin-bottom: 20px;
+
+}
+
+
+
+@keyframes colorChange {
+  0% {
+    color: #646cff;
+  }
+  50% {
+    color: #333; /* Change to whatever original color you want */
+  }
+  100% {
+    color: #646cff;
+  }
+}
+
+.centertext{
+  text-align: center;
+}
+
+button {
+  margin-bottom: 10px;
+}
+
+.bigbox {
+  border: 2px solid #646cff; /* Border color */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for a bit of depth */
+  padding: 10px; /* Add padding around the images */
+  width: 100%;
+}
+
+/* Image upload container */
+
+.wardrobe-images-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Adjust the gap between images */
+  border: 2px solid #646cff; /* Border color */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for a bit of depth */
+  padding: 10px; /* Add padding around the images */
+  margin-top: 20px; /* Add margin at the top */
+  width: 100%;
+}
+
+.wardrobe-image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover; /* Maintain aspect ratio */
+  border: 1px solid #646cff; /* Border color */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for a bit of depth */
 }

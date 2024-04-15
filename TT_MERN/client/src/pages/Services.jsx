@@ -51,41 +51,54 @@ export const Services = () => {
     return (
         <>
             <div className="Outer-box">
-                <h1>Services we offer</h1>
-                <div className="container imageUpload">
-                    <form>
-                        <input
-                            type="file"
-                            name="clothImage"
-                            onChange={handleImageChange}
-                        />
-                        <button type="button" onClick={handleUpload}>
-                            Upload
-                        </button>
-                    </form>
+                <h1 className="services-heading"> Manage your wardrobe</h1>
+                <div className="bigbox">
+                    <h2 className="services-heading">Add cloth to wardrobe</h2>
+                    <div className="container imageUpload">
+                        <form>
+                            <input
+                                type="file"
+                                name="clothImage"
+                                onChange={handleImageChange}
+                            />
+                            <button type="button" onClick={handleUpload}>
+                                Upload
+                            </button>
+                        </form>
+                    </div>
                 </div>
-                <div className="container">
-                    <h2>Services</h2>
+
+
+                <div className="bigbox">
+
+                <h2 className="services-heading">Services</h2>
+                <div className="container services-container">
+
                     <p>
                         We offer a variety of services to our customers. You can
-                        upload your cloth image and we will provide you with the
-                        best possible design for your cloth.
+                        upload your cloth in the digital wardrobe and see how it
+                        looks on you. You can also view the wardrobe images.
                     </p>
-                    <button type="button" onClick={handleWardrobeClick}>
-                        Wardrobe
-                    </button>
+                    <section>
+                        <button type="button" onClick={handleWardrobeClick} className="wardrobe-btn">
+                            Wardrobe
+                        </button>
+                        <p className="service-heading">|   Click to see   |</p>
+                    </section>
+                </div>
                 </div>
             </div>
 
+            <h2 className="centertext">Wardrobe Images</h2>
             <div className="container">
-                <h2>Wardrobe Images</h2>
+
                 {/* <div className="wardrobe-images">
                     {wardrobeImages.map((image, index) => (
                         <img key={index} src={`http://localhost:3060/uploads/${image}`} alt={`Wardrobe Image ${index}`} />
                     ))}
                 </div> */}
 
-                <div className="wardrobe-images">
+                <div className="wardrobe-images-container">
                     {wardrobeImages.map((image, index) => {
                         console.log(`/media/rajan/DATA/Bennett/Learning/Github/MERN/TT_MERN/server/uploads/${image}`); // Log the image filename
                         return (
@@ -93,8 +106,7 @@ export const Services = () => {
                                 key={index}
                                 src={`http://localhost:3060/getImages/${image}`}
                                 alt={`Wardrobe image ${index + 1}`}
-                                width={200}
-                                height={200}
+                                className="wardrobe-image"
                             />
                         );
                     })}

@@ -9,7 +9,7 @@ const router = express.Router();
 
 // Middleware for getting images
 router.get('/', (req, res) => {
-    console.log('GET request received at /api/getImages');
+    // console.log('GET request received at /api/getImages');
     const imagesDirectory = path.join(__dirname, '..', 'uploads');
     fs.readdir(imagesDirectory, (err, files) => {
         if (err) {
@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
         const imageFiles = files.filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file));
         res.send({ images: imageFiles });
     });
-    console.log('GET request processed successfully');
+    // console.log('GET request processed successfully');
 });
 
 

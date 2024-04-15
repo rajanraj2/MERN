@@ -29,7 +29,7 @@ export const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(user);
-        alert("Form submitted");
+        // alert("Form submitted");
 
         try {
             const response = await fetch(URL, {
