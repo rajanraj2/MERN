@@ -91,11 +91,10 @@ export const Services = () => {
                         return (
                             <img
                                 key={index}
-                                // src = {`/media/rajan/DATA/Bennett/Learning/Github/MERN/TT_MERN/server/uploads/${image}` }
-                                src={`../../../server/uploads/${image}`} // Assuming images are stored in the 'uploads' directory
+                                src={`http://localhost:3060/getImages/${image}`}
                                 alt={`Wardrobe image ${index + 1}`}
-                                // width={200}
-                                // height={200}
+                                width={200}
+                                height={200}
                             />
                         );
                     })}

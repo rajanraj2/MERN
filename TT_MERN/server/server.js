@@ -23,6 +23,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use("/getImages",express.static("./uploads"));
 
 app.use("/api/auth", authRoute);
 app.use("/api/form", contactRoute);
