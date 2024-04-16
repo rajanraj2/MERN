@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from "react";
+import { useAuth } from "../store/auth";
+
 
 export const Services = () => {
     const [clothImage, setClothImage] = useState(null);
 
     const [wardrobeImages, setWardrobeImages] = useState([]);
 
+    const [userData, setUserData] = useState(true);
+
+    const { user: currentUser } = useAuth();
+
     const handleUpload = async () => {
         try {
             const formData = new FormData();
             formData.append("clothImage", clothImage);
+            // console.log("Current user email :) ", currentUser.email);
+            formData.append("email", currentUser.email);
 
             const response = await fetch("http://localhost:3060/api/upload", {
                 method: "POST",

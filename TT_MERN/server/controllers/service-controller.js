@@ -10,6 +10,8 @@ const services = async (req, res) => {
         console.log(response);
         console.log(req.file);
 
+        // console.log("Email :)", req.body.email);
+
         // Send initial response to acknowledge file upload
 
         // res.status(200).json({msg: "File uploaded successfully"});
@@ -54,7 +56,7 @@ const services = async (req, res) => {
             const imageData = {
                 imageName: filename,
                 clothType: finalPredictionResult,
-                email: "sample@gmail.com",
+                email: req.body.email,
                 userId: "sample",
                 extra: "extra detail" // If "extra" field is also provided in the request body
             };
@@ -64,24 +66,7 @@ const services = async (req, res) => {
             res.status(200).json({ message: "Image data sent successfully" });
         });
 
-        // console.log(response);
-        // try {
-        //     const imageData = {
-        //         imageName: req.body.filename,
-        //         clothType: finalPredictionResult,
-        //         email: "sample@gmail.com",
-        //         userId: "sample",
-        //         extra: "extra detail" // If "extra" field is also provided in the request body
-        //     };
 
-        //     await Image.create(imageData);
-        //     console.log(`Image data sent successfully :)`);
-        //     return res.status(200).json({ message: "Image data sent successfully" });
-            
-        // }
-        // catch (error) {
-        //     // return res.status(500).json({ message: "Image data not sent" });
-        // }
     }
     catch (error) {
         // console.log(`services: ${error}`);
