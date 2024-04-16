@@ -1,3 +1,41 @@
+# import tensorflow as tf
+# import matplotlib.pyplot as plt
+# import cv2
+# import os
+# import numpy as np
+# from tensorflow.keras.preprocessing.image import ImageDataGenerator
+# from tensorflow.keras.preprocessing import image
+# from tensorflow.keras.optimizers import RMSprop
+
+# # print("Before loading model")
+# from keras.models import load_model
+# # loaded_model = load_model('D:\GithubWindows\MERN\TT_MERN\server\FFmy_model.h5')
+
+# # Load the model with custom objects
+# loaded_model = load_model('D:\GithubWindows\MERN\TT_MERN\server\FFmy_model.h5', custom_objects=None, compile=True)
+
+
+
+# img_path = r'D:\GithubWindows\MERN\TT_MERN\server\jeans.jpg'
+
+# img = image.load_img(img_path, target_size=(200, 200))
+# plt.imshow(img)
+# # plt.show()
+# X = image.img_to_array(img)
+# X = np.expand_dims(X, axis=0)
+# result = loaded_model.predict(X)
+# prediction = np.argmax(result) 
+    
+# if prediction == 0:
+#     print("Shoes:)")
+# elif prediction == 1:
+#     print("T-shirt")
+# else:
+#     print("Trouser")
+
+
+
+
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import cv2
@@ -26,9 +64,15 @@ X = np.expand_dims(X, axis=0)
 result = loaded_model.predict(X)
 prediction = np.argmax(result) 
     
-if prediction == 0:
-    print("shoes")
-elif prediction == 1:
-    print("t-shirt")
+
+# Define labels for predictions
+labels = {2: "Trouser", 1: "T-shirt", 0: "Shoes:)"}
+
+# Print the prediction label
+if prediction in labels:
+    prediction_label = labels[prediction]
+    last_characters = prediction_label[-7:]  # Extract the last 7 characters
+    print(last_characters)
 else:
-    print("trouser")
+    print("Unknown prediction")
+
