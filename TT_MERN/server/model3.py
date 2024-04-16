@@ -26,9 +26,27 @@ X = np.expand_dims(X, axis=0)
 result = loaded_model.predict(X)
 prediction = np.argmax(result) 
     
-if prediction == 0:
-    print("shoes")
-elif prediction == 1:
-    print("t-shirt")
+# if prediction == 0:
+#     print("shoes")
+# elif prediction == 1:
+#     print("t-shirt")
+# else:
+#     print("trouser")
+
+# Define labels for predictions
+labels = {2: "Trouser", 1: "T-shirt", 0: "Shoes:)"}
+
+# Print the prediction label
+# if prediction in labels:
+#     print(labels[prediction].encode('utf-8'))
+# else:
+#     print("Unknown prediction")
+
+# Print the prediction label
+if prediction in labels:
+    prediction_label = labels[prediction]
+    last_characters = prediction_label[-7:]  # Extract the last 7 characters
+    print(last_characters)
 else:
-    print("trouser")
+    print("Unknown prediction")
+

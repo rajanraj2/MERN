@@ -92,19 +92,21 @@ const services = async (req, res) => {
 
         // Retrieve the path of the uploaded image file
         const imagePath = "uploads/1713207603672-8.jpg";
-        console.log(imagePath);
+        // console.log(imagePath);
 
         // Execute the Python script
-        const pythonProcess = spawn('python', ['model.py', imagePath]);
-        console.log("Python process started");
+        const pythonProcess = spawn('python', ['model3.py', imagePath]);
+        // console.log("Python process started");
 
         // Variable to store prediction result
         let predictionResult = '';
+        let finalPredictionResult = '';
 
         // Capture output from Python script
         pythonProcess.stdout.on('data', (data) => {
             predictionResult += data.toString().trim();
-            console.log(`Prediction: ${predictionResult}`);
+            finalPredictionResult = predictionResult.slice(-7);
+            console.log(`Prediction: ${finalPredictionResult}`);
         });
 
         // Handle errors
@@ -117,7 +119,7 @@ const services = async (req, res) => {
         // When Python process ends
         pythonProcess.on('close', (code) => {
             // Send prediction result to client only once after Python process ends
-            res.status(200).json({msg: "File uploaded successfully", prediction: predictionResult });
+            res.status(200).json({msg: "File uploaded successfully", prediction: finalPredictionResult });
         });
     }
     catch(error) {
