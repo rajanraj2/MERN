@@ -39,11 +39,12 @@ Follow these steps to run the TT_MERN project:
 
     # Assign any value you like to the JWT_SECRET key
     JWT_SECRET=assign-any-value-you-like-here
-    ```
+
     # Copy these key & value in .env file
     PORT=3060
     PYTHONIOENCODING=utf-8
     TF_ENABLE_ONEDNN_OPTS=0 
+    ```
 
 4. To run the frontend, navigate to the client folder.
 
