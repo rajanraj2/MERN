@@ -16,6 +16,8 @@ export const Services = () => {
     const [showDetectionMessage, setShowDetectionMessage] = useState(false);
     const [showAddingMessage, setShowAddingMessage] = useState(false);
 
+    const [recommendedOutfits, setRecommendedOutfits] = useState([]);
+
 
     const handleUpload = async () => {
         try {
@@ -94,6 +96,44 @@ export const Services = () => {
     };
 
 
+    const handleRecommend = async (imageName, clothType, extra) => {
+        try {
+            const ogImageName = imageName;
+            const ogClothType = clothType;
+            const ogExtra = extra;
+            const requestBody = {
+                email: currentUser.email,
+                imageName: imageName,
+                clothType: clothType,
+                extra: extra
+            };
+            const response = await fetch("http://localhost:3060/api/recommend", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestBody)
+            });
+
+            if (response.ok) {
+                const recommendedData = await response.json();
+                recommendedData.forEach(outfit => {
+                    outfit.ogImageName = ogImageName;
+                    outfit.ogClothType = ogClothType;
+                    outfit.ogExtra = ogExtra;
+                });
+
+                console.log("Recommendation sent successfully!");
+                setRecommendedOutfits(recommendedData); // Store recommended outfits in state
+            } else {
+                console.error("Failed to send recommendation");
+            }
+        } catch (error) {
+            console.error("Error occurred while sending recommendation:", error);
+        }
+    };
+
+
     useEffect(() => {
         // Call handleWardrobeClick when the component is first loaded
         handleWardrobeClick();
@@ -155,6 +195,32 @@ export const Services = () => {
                 </div>
             </div>
 
+            <h3 className="centertext">Recommended Outfit</h3>
+            <div className="recommended-outfit">
+                
+                <br />
+                {recommendedOutfits.map((outfit, index) => (
+                    <div key={index} className="recommended-outfit-item">
+                        {outfit.ogClothType === "T-shirt" ? (
+                            <>
+                                <img src={`http://localhost:3060/getImages/${outfit.ogImageName}`} alt={`Recommended outfit ${index + 1}`} className="recommended-outfit-image" />
+                                <img src={`http://localhost:3060/getImages/${outfit.imageName}`} alt={`Recommended outfit ${index + 1}`} className="recommended-outfit-image" />
+                            </>
+                        ) : (
+                            <>
+                                <img src={`http://localhost:3060/getImages/${outfit.imageName}`} alt={`Recommended outfit ${index + 1}`} className="recommended-outfit-image" />
+                                <img src={`http://localhost:3060/getImages/${outfit.ogImageName}`} alt={`Recommended outfit ${index + 1}`} className="recommended-outfit-image" />
+                            </>
+                        )}
+                        <div className="recommended-outfit-details">
+                            {/* <p className="recommended-outfit-cloth-type">{outfit.clothTypeR}</p> */}
+                            {/* <p className="recommended-outfit-extra">{outfit.extraR}</p> */}
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+
             <h2 className="centertext">Wardrobe Images</h2>
             <div className="container">
 
@@ -178,7 +244,7 @@ export const Services = () => {
                                 <p className="cloth-type">{image.clothType}</p>
                                 <br /><br /><br />
                                 <div className="button-container">
-                                    <button className="recommend-button">Recommend</button>
+                                    <button className="recommend-button" onClick={() => handleRecommend(image.imageName, image.clothType, image.extra)}>Recommend</button>
                                     <button className="delete-button">Delete</button>
                                 </div>
                             </div>

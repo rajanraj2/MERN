@@ -612,3 +612,36 @@ button {
   justify-content: center;
   align-items: center;
 }
+
+
+
+/* Recommended images */
+
+
+.recommended-outfit {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border: 2px solid #646cff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(26, 100, 179, 0.1);
+  padding: 10px;
+  margin-bottom: 60px;
+}
+
+.recommended-outfit-item {
+  margin: 10px;
+}
+
+.recommended-outfit-image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.recommended-outfit-details {
+  text-align: center;
+  margin-top: 5px;
+}
+
+

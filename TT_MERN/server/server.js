@@ -9,6 +9,7 @@ import serviceRoute from './router/service-router.js';
 import imagesRoute from './router/images-router.js';
 import connectDB from './utils/db.js';
 import errorMiddleware from './middlewares/error-middleware.js';
+import recommendRoute from './router/recommend-router.js';
 
 
 const app = express();
@@ -30,6 +31,7 @@ app.use("/api/form", contactRoute);
 
 app.use("/api/upload", serviceRoute);
 app.use("/api/getImages", imagesRoute);
+app.use("/api/recommend", recommendRoute);
 
 
 app.use(errorMiddleware);

@@ -44,7 +44,8 @@ router.post('/', async (req, res) => {
         // Map each image to an object containing imageName and clothType
         const imageData = images.map(image => ({
             imageName: image.imageName,
-            clothType: image.clothType
+            clothType: image.clothType,
+            extra: image.extra
         }));
 
         // Send the image data as a response
