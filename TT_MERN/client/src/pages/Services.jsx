@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../store/auth";
 
 
+
 export const Services = () => {
     const [clothImage, setClothImage] = useState(null);
 
@@ -10,30 +11,50 @@ export const Services = () => {
     // const [userData, setUserData] = useState(true);
 
     const { user: currentUser } = useAuth();
-    
+
+    const [uploading, setUploading] = useState(false);
+    const [showDetectionMessage, setShowDetectionMessage] = useState(false);
+    const [showAddingMessage, setShowAddingMessage] = useState(false);
+
 
     const handleUpload = async () => {
         try {
+            setUploading(true); // Set uploading state to true
+            setTimeout(() => {
+                setShowDetectionMessage(true);
+            }, 1000);
             const formData = new FormData();
             formData.append("clothImage", clothImage);
             // console.log("Current user email :) ", currentUser.email);
             formData.append("email", currentUser.email);
 
+            setShowAddingMessage(true);
             const response = await fetch("http://localhost:3060/api/upload", {
                 method: "POST",
                 body: formData,
             });
 
+            setUploading(false);
+            setShowDetectionMessage(false);
+            setShowAddingMessage(false);
+
             if (response.ok) {
                 // Handle success if needed
                 console.log("Image uploaded successfully!");
                 handleWardrobeClick();
+                setShowAddingMessage(false);
             } else {
                 // Handle error if needed
                 console.error("Failed to upload image");
             }
         } catch (error) {
             console.error("Error occurred during image upload:", error);
+        }
+        finally {
+            // Set uploading state to false after 10 seconds
+            setUploading(false);
+            setShowDetectionMessage(false);
+            setShowAddingMessage(false);
         }
     };
 
@@ -82,6 +103,19 @@ export const Services = () => {
 
     return (
         <>
+
+            {/* Render upload progress popup if uploading state is true */}
+            {uploading && (
+                <div className="upload-popup">
+                    <div className="upload-popup-content">
+                        <p>Uploading your image...</p>
+                        {showDetectionMessage && <p>AI detecting the type of cloth...</p>}
+                        {showAddingMessage && <p>Adding cloth to your wardrobe...</p>}
+                    </div>
+                </div>
+            )}
+
+
             <div className="Outer-box">
                 <h1 className="services-heading"> Manage your wardrobe</h1>
                 <div className="bigbox">
@@ -131,7 +165,7 @@ export const Services = () => {
                 </div> */}
 
                 <div className="wardrobe-images-container">
-                    
+
                     {wardrobeImages.map((image, index) => (
                         <div key={index} className="wardrobe-image-container">
 
@@ -142,7 +176,7 @@ export const Services = () => {
                             />
                             <div className="image-info">
                                 <p className="cloth-type">{image.clothType}</p>
-                                <br/><br/><br/>
+                                <br /><br /><br />
                                 <div className="button-container">
                                     <button className="recommend-button">Recommend</button>
                                     <button className="delete-button">Delete</button>
