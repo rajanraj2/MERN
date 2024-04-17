@@ -41,17 +41,26 @@ router.post('/', async (req, res) => {
         // Get the filenames of the images from the database
         const imageFiles = images.map(image => image.imageName);
 
-        // Get the absolute path to the uploads directory
-        const imagesDirectory = path.join(__dirname, '..', 'uploads');
+        // Map each image to an object containing imageName and clothType
+        const imageData = images.map(image => ({
+            imageName: image.imageName,
+            clothType: image.clothType
+        }));
 
-        // Filter the imageFiles array to include only existing files in the uploads directory
-        const validImageFiles = imageFiles.filter(file => {
-            const filePath = path.join(imagesDirectory, file);
-            return fs.existsSync(filePath);
-        });
+        // Send the image data as a response
+        res.send({ images: imageData });
 
-        // Send the valid image filenames as a response
-        res.send({ images: validImageFiles });
+        // // Get the absolute path to the uploads directory
+        // const imagesDirectory = path.join(__dirname, '..', 'uploads');
+
+        // // Filter the imageFiles array to include only existing files in the uploads directory
+        // const validImageFiles = imageFiles.filter(file => {
+        //     const filePath = path.join(imagesDirectory, file);
+        //     return fs.existsSync(filePath);
+        // });
+
+        // // Send the valid image filenames as a response
+        // res.send({ images: validImageFiles });
     } catch (error) {
         console.error('Error retrieving images:', error);
         res.status(500).send({ error: 'Internal server error' });

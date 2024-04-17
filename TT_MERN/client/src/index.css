@@ -568,3 +568,24 @@ button {
   border-radius: 8px; /* Rounded corners */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for a bit of depth */
 }
+
+
+.wardrobe-image-container {
+  position: relative;
+}
+
+.button-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+}
+
+.recommend-button {
+  flex: 0.7; /* 70% width */
+}
+
+.delete-button {
+  flex: 0.3; /* 30% width */
+}

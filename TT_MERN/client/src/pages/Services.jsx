@@ -7,9 +7,10 @@ export const Services = () => {
 
     const [wardrobeImages, setWardrobeImages] = useState([]);
 
-    const [userData, setUserData] = useState(true);
+    // const [userData, setUserData] = useState(true);
 
     const { user: currentUser } = useAuth();
+    
 
     const handleUpload = async () => {
         try {
@@ -26,6 +27,7 @@ export const Services = () => {
             if (response.ok) {
                 // Handle success if needed
                 console.log("Image uploaded successfully!");
+                handleWardrobeClick();
             } else {
                 // Handle error if needed
                 console.error("Failed to upload image");
@@ -41,20 +43,6 @@ export const Services = () => {
     };
 
 
-    // const handleWardrobeClick = async () => {
-    //     try {
-    //         const response = await fetch("http://localhost:3060/api/getImages");
-
-    //         if (response.ok) {
-    //             const data = await response.json();
-    //             setWardrobeImages(data.images);
-    //         } else {
-    //             console.error("Failed to fetch wardrobe images");
-    //         }
-    //     } catch (error) {
-    //         console.error("Error occurred while fetching wardrobe images:", error);
-    //     }
-    // };
 
 
     const handleWardrobeClick = async () => {
@@ -63,7 +51,7 @@ export const Services = () => {
             const requestBody = {
                 email: currentUser.email
             };
-    
+
             const response = await fetch("http://localhost:3060/api/getImages", {
                 method: "POST", // Change the method to POST
                 headers: {
@@ -71,10 +59,11 @@ export const Services = () => {
                 },
                 body: JSON.stringify(requestBody) // Convert the request body to JSON
             });
-    
+
             if (response.ok) {
                 const data = await response.json();
-                setWardrobeImages(data.images);
+                const reversedImages = data.images.reverse();
+                setWardrobeImages(reversedImages);
             } else {
                 console.error("Failed to fetch wardrobe images");
             }
@@ -82,7 +71,14 @@ export const Services = () => {
             console.error("Error occurred while fetching wardrobe images:", error);
         }
     };
-    
+
+
+    useEffect(() => {
+        // Call handleWardrobeClick when the component is first loaded
+        handleWardrobeClick();
+    }); // Empty dependency array ensures this effect runs only once after the initial render
+
+
 
     return (
         <>
@@ -107,21 +103,21 @@ export const Services = () => {
 
                 <div className="bigbox">
 
-                <h2 className="services-heading">Services</h2>
-                <div className="container services-container">
+                    <h2 className="services-heading">Services</h2>
+                    <div className="container services-container">
 
-                    <p>
-                        We offer a variety of services to our customers. You can
-                        upload your cloth in the digital wardrobe and see how it
-                        looks on you. You can also view the wardrobe images.
-                    </p>
-                    <section>
-                        <button type="button" onClick={handleWardrobeClick} className="wardrobe-btn">
-                            Wardrobe
-                        </button>
-                        <p className="service-heading">|   Click to see   |</p>
-                    </section>
-                </div>
+                        <p>
+                            We offer a variety of services to our customers. You can
+                            upload your cloth in the digital wardrobe and see how it
+                            looks on you. You can also view the wardrobe images.
+                        </p>
+                        <section>
+                            <button type="button" onClick={handleWardrobeClick} className="wardrobe-btn">
+                                Wardrobe
+                            </button>
+                            <p className="service-heading">|   Click to see   |</p>
+                        </section>
+                    </div>
                 </div>
             </div>
 
@@ -135,17 +131,26 @@ export const Services = () => {
                 </div> */}
 
                 <div className="wardrobe-images-container">
-                    {wardrobeImages.map((image, index) => {
-                        console.log(`uploads/${image}`); // Log the image filename
-                        return (
+                    
+                    {wardrobeImages.map((image, index) => (
+                        <div key={index} className="wardrobe-image-container">
+
                             <img
-                                key={index}
-                                src={`http://localhost:3060/getImages/${image}`}
+                                src={`http://localhost:3060/getImages/${image.imageName}`}
                                 alt={`Wardrobe image ${index + 1}`}
                                 className="wardrobe-image"
                             />
-                        );
-                    })}
+                            <div className="image-info">
+                                <p className="cloth-type">{image.clothType}</p>
+                                <br/><br/><br/>
+                                <div className="button-container">
+                                    <button className="recommend-button">Recommend</button>
+                                    <button className="delete-button">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+
                 </div>
 
             </div>
