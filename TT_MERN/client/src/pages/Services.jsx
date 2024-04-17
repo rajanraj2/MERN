@@ -41,10 +41,37 @@ export const Services = () => {
     };
 
 
+    // const handleWardrobeClick = async () => {
+    //     try {
+    //         const response = await fetch("http://localhost:3060/api/getImages");
+
+    //         if (response.ok) {
+    //             const data = await response.json();
+    //             setWardrobeImages(data.images);
+    //         } else {
+    //             console.error("Failed to fetch wardrobe images");
+    //         }
+    //     } catch (error) {
+    //         console.error("Error occurred while fetching wardrobe images:", error);
+    //     }
+    // };
+
+
     const handleWardrobeClick = async () => {
         try {
-            const response = await fetch("http://localhost:3060/api/getImages");
-
+            // Include the current user's email in the request body
+            const requestBody = {
+                email: currentUser.email
+            };
+    
+            const response = await fetch("http://localhost:3060/api/getImages", {
+                method: "POST", // Change the method to POST
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestBody) // Convert the request body to JSON
+            });
+    
             if (response.ok) {
                 const data = await response.json();
                 setWardrobeImages(data.images);
@@ -55,6 +82,7 @@ export const Services = () => {
             console.error("Error occurred while fetching wardrobe images:", error);
         }
     };
+    
 
     return (
         <>
@@ -108,7 +136,7 @@ export const Services = () => {
 
                 <div className="wardrobe-images-container">
                     {wardrobeImages.map((image, index) => {
-                        console.log(`/media/rajan/DATA/Bennett/Learning/Github/MERN/TT_MERN/server/uploads/${image}`); // Log the image filename
+                        console.log(`uploads/${image}`); // Log the image filename
                         return (
                             <img
                                 key={index}
