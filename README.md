@@ -25,20 +25,25 @@ Follow these steps to run the TT_MERN project:
 2. Navigate into the TT_MERN folder.
 
     ```bash
+    cd MERN
     cd TT_MERN
     ```
 
-3. Configure the `.env` file:
+3. Configure the `.env` file: (Creatre .env file at same location where server.js exists)
 
     ```plaintext
     # .env
 
     # Add your MongoDB connection URI
-    MONGO_URI="your-mongodb-connection-link-goes-here"
+    MONGO_URI=your-mongodb-connection-link-goes-here
 
     # Assign any value you like to the JWT_SECRET key
-    JWT_SECRET="assign-any-value-you-like-here"
+    JWT_SECRET=assign-any-value-you-like-here
     ```
+    # Copy these key & value in .env file
+    PORT=3060
+    PYTHONIOENCODING=utf-8
+    TF_ENABLE_ONEDNN_OPTS=0 
 
 4. To run the frontend, navigate to the client folder.
 
