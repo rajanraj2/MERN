@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {useNavigate} from "react-router-dom";
 import { useAuth } from "../store/auth";
+import { toast } from "react-toastify";
 
 const URL = "http://localhost:3060/api/auth/login";
 
@@ -44,15 +45,15 @@ export const Login = () => {
                 // localStorage.setItem("token", res_data.token);
 
                 
-                alert("Login successful");
+                toast.success("Login successful");
                 setUser({email: "", password: ""});
                 navigate("/");
             }
             else {
                 if (res_data.extraDetails) {
-                    alert(`${res_data.extraDetails}`);
+                    toast.error(`${res_data.extraDetails}`);
                 } else {
-                    alert(res_data.message);
+                    toast.error(res_data.message);
                 }
                 console.log("Invalid email or password :(");
             }

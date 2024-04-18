@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../store/auth";
+import { toast } from "react-toastify";
 
 const defaultContactFormData = {
     username: "",
@@ -52,7 +53,7 @@ export const Contact = () => {
                 setUser( defaultContactFormData );
                 const data = await response.json();
                 console.log(data);
-                alert("Message sent successfully.");
+                toast.success("Message sent successfully.");
             }
         }
         catch (err) {
