@@ -39,11 +39,14 @@ export const Register = () => {
                 },
                 body: JSON.stringify(user),
             });
-            console.log(response);
+
+            // console.log(response);
+
+            const res_data = await response.json();
+            console.log("response from server", res_data);
+
 
             if (response.ok === true) {
-                const res_data = await response.json();
-                console.log("response from server", res_data);
                 storeTokenInLS(res_data.token);
 
 
@@ -52,8 +55,7 @@ export const Register = () => {
                 navigate("/login");
             }
             else {
-                const res_data = await response.json();
-                console.log("response from server", res_data);
+                
                 if (res_data.extraDetails) {
                     alert(`Registration failed: ${res_data.extraDetails}`);
                 } else {

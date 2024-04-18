@@ -12,7 +12,7 @@ const validate = (schema) => async (req, res, next) => {
             message,
             extraDetails,
         };
-        console.error("Validation Error:", error); // Corrected error object
+        // console.error("Validation Error:", error); // Corrected error object
         // res.status(status).json({ msg: message });
         next(error); // Moved this line before sending the response
     }

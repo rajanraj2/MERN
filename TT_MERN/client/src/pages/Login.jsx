@@ -37,8 +37,9 @@ export const Login = () => {
             });
             console.log("Login form", response);
 
+            const res_data = await response.json();
+
             if (response.ok === true) {
-                const res_data = await response.json();
                 storeTokenInLS(res_data.token);
                 // localStorage.setItem("token", res_data.token);
 
@@ -48,9 +49,14 @@ export const Login = () => {
                 navigate("/");
             }
             else {
-                alert("Invalid email or password :(");
+                if (res_data.extraDetails) {
+                    alert(`${res_data.extraDetails}`);
+                } else {
+                    alert(res_data.message);
+                }
                 console.log("Invalid email or password :(");
             }
+            
         }
         catch (err) {
             console.log("login",err);

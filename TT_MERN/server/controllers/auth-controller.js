@@ -44,7 +44,8 @@ const login = async (req, res) => {
         const userExist = await User
         .findOne({email});
         if (!userExist) {
-            return res.status(400).json({message: "Invalid Credentials"}).send({msg: "User not found"});
+            console.log("User not found");
+            return res.status(400).json({message: "User does not exist"}).send({msg: "Invalid credentials"});
         }
         // const isMatch = await bycrypt.compare(password, userExist.password);
         const isMatch = await userExist.matchPassword(password);
@@ -58,10 +59,12 @@ const login = async (req, res) => {
         }
         else {
             res.status(400).json({message: "Invalid email or password :("}); 
+            // console.log("invalid email or password :(");
         }
     }
     catch {
-        res.status(400).send({msg : "page not found"},);
+        // res.status(400).send({msg : "page not found"},);
+        console.log("error from login controller");
     }
 }   
 
