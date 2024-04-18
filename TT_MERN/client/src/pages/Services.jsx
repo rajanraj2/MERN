@@ -241,7 +241,7 @@ export const Services = () => {
                                 className="wardrobe-image"
                             />
                             <div className="image-info">
-                                <p className="cloth-type">{image.clothType}</p>
+                                <p className="cloth-type">{image.clothType} </p>
                                 <br /><br /><br />
                                 <div className="button-container">
                                     <button className="recommend-button" onClick={() => handleRecommend(image.imageName, image.clothType, image.extra)}>Recommend</button>

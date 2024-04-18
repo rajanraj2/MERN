@@ -2,19 +2,13 @@
 import { spawn } from 'child_process';
 import Image from "../models/image-model.js";
 
-
-
 const services = async (req, res) => {
     try {
         const response = req.body;
-        console.log(response);
-        console.log(req.file);
-
-        // console.log("Email :)", req.body.email);
+        // console.log(response);
+        // console.log(req.file);
 
         // Send initial response to acknowledge file upload
-
-        // res.status(200).json({msg: "File uploaded successfully"});
 
         // Retrieve the filename of the uploaded image
         const filename = req.file.filename;
@@ -26,16 +20,21 @@ const services = async (req, res) => {
         // console.log(imagePath);
 
         // Execute the Python script
-        const pythonProcess = spawn('python', ['model3.py', imagePath]);
+        const pythonProcess = spawn('python', ['model.py', imagePath]);
         // console.log("Python process started");
 
         // Variable to store prediction result
         let predictionResult = '';
+        let initialPredictionResult = '';
         let finalPredictionResult = '';
+        let colorPrediction = '';
 
         // Capture output from Python script
         pythonProcess.stdout.on('data', (data) => {
             predictionResult += data.toString().trim();
+            // console.log(`Prediction Result is : ${predictionResult}`);
+            initialPredictionResult = predictionResult.slice(-12);
+            colorPrediction = initialPredictionResult.substring(0, 5);
             finalPredictionResult = predictionResult.slice(-7);
             console.log(`Prediction: ${finalPredictionResult}`);
         });
@@ -58,7 +57,7 @@ const services = async (req, res) => {
                 clothType: finalPredictionResult,
                 email: req.body.email,
                 userId: "sample",
-                extra: "extra detail" // If "extra" field is also provided in the request body
+                extra: colorPrediction 
             };
 
             await Image.create(imageData);
