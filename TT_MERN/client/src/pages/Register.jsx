@@ -52,7 +52,13 @@ export const Register = () => {
                 navigate("/login");
             }
             else {
-                alert("Registration failed");
+                const res_data = await response.json();
+                console.log("response from server", res_data);
+                if (res_data.extraDetails) {
+                    alert(`Registration failed: ${res_data.extraDetails}`);
+                } else {
+                    alert(`Registration failed: ${res_data.msg}`);
+                }
             }
         }
         catch (err) {

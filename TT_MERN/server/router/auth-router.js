@@ -9,7 +9,7 @@ const router = express.Router();
 router.route('/').get(home);
 router
     .route('/register')
-    .post( register);
+    .post(validate(signupSchema), register);
 router.route('/login').post(login);
 
 

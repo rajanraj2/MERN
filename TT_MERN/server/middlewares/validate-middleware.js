@@ -1,7 +1,7 @@
 const validate = (schema) => async (req, res, next) => {
     try {
-        const parsedBody = await schema.parseAsync(req.body);
-        req.body = parsedBody;
+        const parseBody = await schema.parseAsync(req.body);
+        req.body = parseBody;
         next();
     } catch (err) {
         const status = 400; // Corrected status code
@@ -13,7 +13,7 @@ const validate = (schema) => async (req, res, next) => {
             extraDetails,
         };
         console.error("Validation Error:", error); // Corrected error object
-        res.status(status).json({ msg: message });
+        // res.status(status).json({ msg: message });
         next(error); // Moved this line before sending the response
     }
 };
