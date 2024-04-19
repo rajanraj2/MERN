@@ -116,13 +116,16 @@ export const Services = () => {
             });
 
             if (response.ok) {
+                console.log("Wardrobe images fetched successfully!");
                 const data = await response.json();
                 const reversedImages = data.images.reverse();
                 setWardrobeImages(reversedImages);
             } else {
+                // console.log("Failed to fetch wardrobe images");
                 console.error("Failed to fetch wardrobe images");
             }
         } catch (error) {
+            // console.log("Error occurred while fetching wardrobe images:", error);
             console.error("Error occurred while fetching wardrobe images:", error);
         }
     };
@@ -166,10 +169,36 @@ export const Services = () => {
     };
 
 
+    const handleDelete = async (imageName) => {
+        try {
+            const requestBody = {
+                email: currentUser.email,
+                imageName: imageName,
+            };
+            const response = await fetch("http://localhost:3060/api/deleteImages", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(requestBody),
+            });
+            if (response.ok) {
+                // Update wardrobe images state after successful deletion
+                handleWardrobeClick();
+                toast.success("Image deleted successfully!");
+            } else {
+                console.error("Failed to delete image");
+            }
+        } catch (error) {
+            console.error("Error occurred during image deletion:", error);
+        }
+    };
+
+
     useEffect(() => {
         // Call handleWardrobeClick when the component is first loaded
         handleWardrobeClick();
-    }); // Empty dependency array ensures this effect runs only once after the initial render
+    }, []); // Empty dependency array ensures this effect runs only once after the initial render
 
 
 
@@ -284,7 +313,7 @@ export const Services = () => {
                                 <br /><br /><br />
                                 <div className="button-container">
                                     <button className="recommend-button" onClick={() => handleRecommend(image.imageName, image.clothType, image.extra)}>Recommend</button>
-                                    <button className="delete-button">Delete</button>
+                                    <button className="delete-button" onClick={() => handleDelete(image.imageName)}>Delete</button>
                                 </div>
                             </div>
                         </div>
