@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 export const Services = () => {
     const [clothImage, setClothImage] = useState(null);
 
+    const [clothImagePreview, setClothImagePreview] = useState(null); // Define clothImagePreview state
+
     const [wardrobeImages, setWardrobeImages] = useState([]);
 
     // const [userData, setUserData] = useState(true);
@@ -17,6 +19,8 @@ export const Services = () => {
     const [showAddingMessage, setShowAddingMessage] = useState(false);
 
     const [recommendedOutfits, setRecommendedOutfits] = useState([]);
+
+    
 
 
     const handleUpload = async () => {
@@ -55,6 +59,9 @@ export const Services = () => {
                 console.log("Image uploaded successfully!");
                 handleWardrobeClick();
                 setShowAddingMessage(false);
+
+                setClothImage(null);
+                setClothImagePreview(null);
             } else {
                 // Handle error if needed
                 console.error("Failed to upload image");
@@ -72,8 +79,23 @@ export const Services = () => {
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
+
+        // Create a new FileReader instance
+        const reader = new FileReader();
+
+        // Define the onload event handler for the FileReader
+        reader.onload = () => {
+            // Set the result of the FileReader to the image preview
+            setClothImagePreview(reader.result);
+        };
+
+        // Read the file as a data URL
+        reader.readAsDataURL(file);
+
+        // Set the selected image file
         setClothImage(file);
     };
+
 
 
 
@@ -171,6 +193,13 @@ export const Services = () => {
                 <div className="bigbox">
                     <h2 className="services-heading">Add cloth to wardrobe</h2>
                     <div className="container imageUpload">
+                        {clothImagePreview && (
+                            <div className="image-preview">
+                                <img src={clothImagePreview} alt="Selected Image" width="200px" height="200px" />
+                            </div>
+                        )}
+                        <br />
+
                         <form>
                             <input
                                 type="file"
@@ -207,7 +236,7 @@ export const Services = () => {
 
             <h3 className="centertext">Recommended Outfit</h3>
             <div className="recommended-outfit">
-                
+
                 <br />
                 {recommendedOutfits.map((outfit, index) => (
                     <div key={index} className="recommended-outfit-item">
