@@ -50,10 +50,20 @@ export const Contact = () => {
             });
 
             if (response.ok) {
-                setUser( defaultContactFormData );
+                // setUser( defaultContactFormData );
                 const data = await response.json();
                 console.log(data);
                 toast.success("Message sent successfully.");
+
+                if (currentUser) {
+                    setUser({
+                        ...defaultContactFormData,
+                        username: currentUser.username,
+                        email: currentUser.email,
+                    });
+                } else {
+                    setUser(defaultContactFormData);
+                }
             }
         }
         catch (err) {
