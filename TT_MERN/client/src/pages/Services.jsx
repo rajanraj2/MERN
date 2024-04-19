@@ -150,16 +150,31 @@ export const Services = () => {
                 body: JSON.stringify(requestBody)
             });
 
+
+
             if (response.ok) {
                 const recommendedData = await response.json();
-                recommendedData.forEach(outfit => {
-                    outfit.ogImageName = ogImageName;
-                    outfit.ogClothType = ogClothType;
-                    outfit.ogExtra = ogExtra;
-                });
-
+                if (recommendedData.length === 0) {
+                    // If no recommendations, add default outfit
+                    const defaultOutfit = { 
+                        imageName: 'noMatch.png',
+                        clothType: 'otherOne',
+                        extra: 'Default outfit',
+                        ogImageName: ogImageName,
+                        ogClothType: ogClothType,
+                        ogExtra: ogExtra
+                    };
+                    setRecommendedOutfits([defaultOutfit]); // Store default outfit in state
+                } else {
+                    // If recommendations exist, store them in state
+                    recommendedData.forEach(outfit => {
+                        outfit.ogImageName = ogImageName;
+                        outfit.ogClothType = ogClothType;
+                        outfit.ogExtra = ogExtra;
+                    });
+                    setRecommendedOutfits(recommendedData); // Store recommended outfits in state
+                }
                 console.log("Recommendation sent successfully!");
-                setRecommendedOutfits(recommendedData); // Store recommended outfits in state
             } else {
                 console.error("Failed to send recommendation");
             }
