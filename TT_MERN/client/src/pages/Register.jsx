@@ -90,22 +90,6 @@ export const Register = () => {
                 }
             }
 
-                // if (response.ok === true) {
-                //     storeTokenInLS(res_data.token);
-
-
-                //     toast.success("Registration successful");
-                //     setUser({username: "", email: "", phone: "", password: ""});
-                //     navigate("/login");
-                // }
-                // else {
-
-                //     if (res_data.extraDetails) {
-                //         toast.error(`Registration failed: ${res_data.extraDetails}`);
-                //     } else {
-                //         toast.error(`Registration failed: ${res_data.msg}`);
-                //     }
-                // }
             }
         catch (err) {
                 console.log("register", err);
