@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../store/auth";
-
+import { toast } from "react-toastify";
 
 
 export const Services = () => {
@@ -21,10 +21,19 @@ export const Services = () => {
 
     const handleUpload = async () => {
         try {
+            toast.info("Uploading your image...");
             setUploading(true); // Set uploading state to true
             setTimeout(() => {
                 setShowDetectionMessage(true);
             }, 1000);
+
+            setTimeout(() => {
+                toast.info("AI detecting the type of cloth...");
+                setTimeout(() => {
+                    toast.info("Adding cloth to your wardrobe...");
+                }, 1000); // Delayed toast after 1 second
+            }, 1000); // Delayed toast after 1 second
+
             const formData = new FormData();
             formData.append("clothImage", clothImage);
             // console.log("Current user email :) ", currentUser.email);
@@ -42,6 +51,7 @@ export const Services = () => {
 
             if (response.ok) {
                 // Handle success if needed
+                toast.success("Image uploaded successfully!");
                 console.log("Image uploaded successfully!");
                 handleWardrobeClick();
                 setShowAddingMessage(false);
